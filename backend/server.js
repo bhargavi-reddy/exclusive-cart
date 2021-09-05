@@ -8,12 +8,15 @@ const usersRoute = require('./routes/userRoutes')
 const orderRoute = require('./routes/orderRoutes')
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const uploadRoute = require('./routes/uploadRoutes')
+
 const app = express();
+
 dotenv.config();
+
 const PORT = process.env.PORT
 const ENV = process.env.NODE_ENV
 
-__dirname = path.resolve()
+const __dirname = path.resolve()
 
 connectDb();
 
@@ -29,18 +32,18 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAY_PAL_CLIENT_ID))
 
 
-if (process.env.NODE_ENV == 'Development') {
+if (process.env.NODE_ENV == 'development') {
     app.use(morgan('dev'))
 }
-if (process.env.NODE_ENV == 'Production') {
-    app.use(express.static(path.join(__dirname, '/frontend/build')))
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-    })
-} else {
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    )
+} else {
     app.get('/', (req, res) => {
-        res.json(products)
+        res.send('API is running....')
     })
 }
 
