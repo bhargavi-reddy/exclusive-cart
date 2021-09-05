@@ -32,7 +32,7 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAY_PAL_CLIENT_ID))
 
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 
