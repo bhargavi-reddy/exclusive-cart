@@ -50,6 +50,6 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(5000, (req, res) => {
+app.listen(PORT || 5000, (req, res) => {
     console.log(`Server is running in ${ENV} mode on port ${PORT}...`)
 })
